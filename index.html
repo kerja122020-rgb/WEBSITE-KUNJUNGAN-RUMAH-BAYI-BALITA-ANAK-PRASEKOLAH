@@ -6,640 +6,661 @@
     <title>Checklist Kunjungan Rumah - Bayi, Balita dan Anak Usia Pra Sekolah</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
         .checkbox-group {
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
             align-items: center;
+            flex-wrap: wrap;
         }
         .checkbox-item {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .checkbox-item:hover {
+            background: rgba(59, 130, 246, 0.1);
+        }
+        .checkbox-item input[type="radio"], .checkbox-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #3b82f6;
+        }
+        .form-section {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .form-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
         }
         .section-title {
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-            color: white;
-            padding: 0.75rem 1rem;
-            border-radius: 0.5rem;
+            color: #1e293b;
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .section-title::before {
+            content: '';
+            width: 6px;
+            height: 24px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 3px;
+        }
+        .form-input {
+            transition: all 0.3s ease;
+            border: 2px solid #e2e8f0;
+            background: #ffffff;
+        }
+        .form-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            transform: translateY(-1px);
+        }
+        .form-label {
             font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+        .submit-btn {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4);
+        }
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+        .header-decoration {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 25px;
+            padding: 3rem 2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .header-decoration::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        .age-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            backdrop-filter: blur(10px);
+        }
+        .imunisasi-card {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-radius: 15px;
+            padding: 1.5rem;
             margin-bottom: 1rem;
+            border-left: 4px solid #0ea5e9;
+        }
+        .imunisasi-title {
+            font-weight: 600;
+            color: #0c4a6e;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .imunisasi-title::before {
+            content: '💉';
+            font-size: 1.2rem;
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen p-4">
-    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-6">
-        <div class="text-center mb-8">
-            <h1 class="text-2xl font-bold text-gray-800 mb-2">CHECKLIST KUNJUNGAN RUMAH</h1>
-            <h2 class="text-lg font-semibold text-blue-600">BAYI, BALITA DAN ANAK USIA PRA SEKOLAH</h2>
-            <p class="text-sm text-gray-600 mt-2">(Usia ≥ 6 - 71 bulan)</p>
-            <p class="text-xs text-gray-500 mt-1">Berikan tanda centang (√) jika YA dan tanda silang (X) jika TIDAK</p>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen py-8">
+    <div class="max-w-4xl mx-auto px-4">
+        <div class="header-decoration">
+            <div class="relative z-10">
+                <div class="text-6xl mb-4">🏥</div>
+                <h1 class="text-4xl font-bold text-white mb-3">CHECKLIST KUNJUNGAN RUMAH</h1>
+                <h2 class="text-2xl text-white/90 mb-4">BAYI, BALITA DAN ANAK USIA PRA SEKOLAH</h2>
+                <div class="age-badge">
+                    <span class="text-white font-medium">Usia ≥ 6 - 71 bulan</span>
+                </div>
+                <p class="text-white/80 mt-4 text-lg">Berikan tanda centang (√) jika YA dan tanda silang (X) jika TIDAK</p>
+            </div>
         </div>
 
-        <form id="healthChecklistForm" class="space-y-6">
-            <!-- Data Dasar Anak -->
-            <div class="section-title">Data Dasar Anak</div>
-            <div class="grid md:grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Nama Anak</label>
-                    <input type="text" name="namaAnak" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal Lahir</label>
-                    <input type="date" name="tanggalLahir" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Jenis Kelamin</label>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="radio" name="jenisKelamin" value="Laki-laki" id="laki" required>
-                            <label for="laki">Laki-laki</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="radio" name="jenisKelamin" value="Perempuan" id="perempuan" required>
-                            <label for="perempuan">Perempuan</label>
+        <form id="checklistForm" class="space-y-6">
+            <!-- Data Dasar -->
+            <div class="form-section">
+                <h3 class="section-title">📋 Data Dasar</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="form-label">👤 Nama Kader</label>
+                        <input type="text" name="namaKader" required class="form-input w-full px-4 py-3 rounded-xl">
+                    </div>
+                    <div>
+                        <label class="form-label">🏘️ Nama Desa</label>
+                        <select name="namaDesa" required class="form-input w-full px-4 py-3 rounded-xl">
+                            <option value="">Pilih Desa</option>
+                            <option value="Ganra">Ganra</option>
+                            <option value="Belo">Belo</option>
+                            <option value="Enrekeng">Enrekeng</option>
+                            <option value="Lompulle">Lompulle</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label">🏥 Nama Posyandu</label>
+                        <input type="text" name="namaPosyandu" required class="form-input w-full px-4 py-3 rounded-xl">
+                    </div>
+                    <div>
+                        <label class="form-label">👶 Nama Anak</label>
+                        <input type="text" name="namaAnak" required class="form-input w-full px-4 py-3 rounded-xl">
+                    </div>
+                    <div>
+                        <label class="form-label">📅 Tanggal Lahir</label>
+                        <input type="date" name="tanggalLahir" required class="form-input w-full px-4 py-3 rounded-xl">
+                    </div>
+                    <div>
+                        <label class="form-label">⚧️ Jenis Kelamin</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="radio" name="jenisKelamin" value="Laki-laki" id="laki" required>
+                                <label for="laki">👦 Laki-laki</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" name="jenisKelamin" value="Perempuan" id="perempuan" required>
+                                <label for="perempuan">👧 Perempuan</label>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Waktu Kunjungan</label>
-                    <select name="waktuKunjungan" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <option value="">Pilih Kunjungan</option>
-                        <option value="Kunjungan 1">Kunjungan 1</option>
-                        <option value="Kunjungan 2">Kunjungan 2</option>
-                        <option value="Kunjungan 3">Kunjungan 3</option>
-                        <option value="Kunjungan 4">Kunjungan 4</option>
-                        <option value="Kunjungan 5">Kunjungan 5</option>
-                        <option value="Kunjungan 6">Kunjungan 6</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal Kunjungan</label>
-                    <input type="date" name="tanggalKunjungan" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <div>
+                        <label class="form-label">🔄 Waktu Kunjungan</label>
+                        <select name="waktuKunjungan" required class="form-input w-full px-4 py-3 rounded-xl">
+                            <option value="">Pilih Kunjungan</option>
+                            <option value="Kunjungan 1">Kunjungan 1</option>
+                            <option value="Kunjungan 2">Kunjungan 2</option>
+                            <option value="Kunjungan 3">Kunjungan 3</option>
+                            <option value="Kunjungan 4">Kunjungan 4</option>
+                            <option value="Kunjungan 5">Kunjungan 5</option>
+                            <option value="Kunjungan 6">Kunjungan 6</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label">📆 Tanggal Kunjungan</label>
+                        <input type="date" name="tanggalKunjungan" required class="form-input w-full px-4 py-3 rounded-xl">
+                    </div>
                 </div>
             </div>
 
             <!-- Skrining Demam -->
-            <div class="section-title">Skrining Demam</div>
-            <div class="grid md:grid-cols-3 gap-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Suhu Tubuh</label>
-                    <div class="checkbox-group flex-col items-start">
+            <div class="form-section">
+                <h3 class="section-title">🌡️ Skrining Demam</h3>
+                <div class="space-y-3">
+                    <div class="checkbox-group">
                         <div class="checkbox-item">
-                            <input type="radio" name="suhuTubuh" value="<37,5°C" id="suhuNormal">
-                            <label for="suhuNormal">&lt;37,5°C</label>
+                            <input type="radio" name="skriningDemam" value="<37,5°C" id="demam1">
+                            <label for="demam1">&lt;37,5°C</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="radio" name="suhuTubuh" value=">37,5°C" id="suhuTinggi">
-                            <label for="suhuTinggi">&gt;37,5°C</label>
+                            <input type="radio" name="skriningDemam" value=">37,5°C" id="demam2">
+                            <label for="demam2">&gt;37,5°C</label>
                         </div>
                     </div>
-                </div>
-                <div class="md:col-span-2">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Riwayat Perjalanan Luar Daerah</label>
-                    <input type="text" name="riwayatPerjalanan" placeholder="Sebutkan jika ada..." class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Riwayat Perjalanan Luar Daerah</label>
+                        <input type="text" name="riwayatPerjalanan" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
                 </div>
             </div>
 
             <!-- Kepemilikan Buku KIA -->
-            <div class="section-title">Kepemilikan Buku KIA</div>
-            <div class="checkbox-group">
-                <div class="checkbox-item">
-                    <input type="radio" name="bukuKIA" value="Ada" id="kiaAda">
-                    <label for="kiaAda">Ada</label>
-                </div>
-                <div class="checkbox-item">
-                    <input type="radio" name="bukuKIA" value="Tidak" id="kiaTidak">
-                    <label for="kiaTidak">Tidak</label>
+            <div class="form-section">
+                <h3 class="section-title">📖 Kepemilikan Buku KIA</h3>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="radio" name="bukuKIA" value="Ada" id="kia1">
+                        <label for="kia1">Ada</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="radio" name="bukuKIA" value="Tidak" id="kia2">
+                        <label for="kia2">Tidak</label>
+                    </div>
                 </div>
             </div>
 
-            <!-- Penimbangan dan Pengukuran -->
-            <div class="section-title">Penimbangan & Pengukuran</div>
-            <div class="grid md:grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal</label>
-                    <input type="date" name="tanggalTimbang" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Tempat</label>
-                    <input type="text" name="tempatTimbang" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Petugas</label>
-                    <input type="text" name="petugasTimbang" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-            </div>
-            <div class="grid md:grid-cols-3 gap-4 mt-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Berat Badan (kg)</label>
-                    <input type="number" step="0.1" name="beratBadan" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Tinggi Badan (cm)</label>
-                    <input type="number" step="0.1" name="tinggiBadan" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Lingkar Kepala (cm)</label>
-                    <input type="number" step="0.1" name="lingkarKepala" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <!-- Penimbangan, Pengukuran -->
+            <div class="form-section">
+                <h3 class="section-title">⚖️ Penimbangan, Pengukuran</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal</label>
+                        <input type="date" name="tanggalPenimbangan" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Tempat</label>
+                        <input type="text" name="tempatPenimbangan" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Petugas</label>
+                        <input type="text" name="petugasPenimbangan" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Berat Badan (kg)</label>
+                        <input type="number" step="0.1" name="beratBadan" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Tinggi Badan (cm)</label>
+                        <input type="number" step="0.1" name="tinggiBadan" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Lingkar Kepala (cm)</label>
+                        <input type="number" step="0.1" name="lingkarKepala" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
                 </div>
             </div>
 
             <!-- Pemantauan Perkembangan -->
-            <div class="section-title">Pemantauan Perkembangan</div>
-            <div class="grid md:grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal</label>
-                    <input type="date" name="tanggalPantau" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Tempat</label>
-                    <input type="text" name="tempatPantau" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Petugas</label>
-                    <input type="text" name="petugasPantau" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Hasil</label>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="radio" name="hasilPantau" value="Lengkap" id="lengkap">
-                            <label for="lengkap">Lengkap</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="radio" name="hasilPantau" value="Tidak" id="tidakLengkap">
-                            <label for="tidakLengkap">Tidak</label>
+            <div class="form-section">
+                <h3 class="section-title">📈 Pemantauan Perkembangan</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal</label>
+                        <input type="date" name="tanggalPerkembangan" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Tempat</label>
+                        <input type="text" name="tempatPerkembangan" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Petugas</label>
+                        <input type="text" name="petugasPerkembangan" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Hasil</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="radio" name="hasilPerkembangan" value="Lengkap" id="perkembangan1">
+                                <label for="perkembangan1">Lengkap</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" name="hasilPerkembangan" value="Tidak" id="perkembangan2">
+                                <label for="perkembangan2">Tidak</label>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Imunisasi -->
-            <div class="section-title">Status Imunisasi</div>
-            <div class="space-y-4">
-                <div>
-                    <h4 class="font-medium text-gray-700 mb-2">Usia 0-1 Bulan</h4>
-                    <div class="grid md:grid-cols-3 gap-2">
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="imunisasi01" value="Hepatitis B (24 Jam)" id="hep01">
-                            <label for="hep01">Hepatitis B (24 Jam)</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="imunisasi01" value="BCG" id="bcg01">
-                            <label for="bcg01">BCG</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="imunisasi01" value="Polio tetes 1" id="polio01">
-                            <label for="polio01">Polio tetes 1</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <h4 class="font-medium text-gray-700 mb-2">Usia 2 Bulan</h4>
-                    <div class="grid md:grid-cols-2 gap-2">
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="imunisasi02" value="DPT-HB-Hib 1" id="dpt02">
-                            <label for="dpt02">DPT-HB-Hib 1</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="imunisasi02" value="Polio Tetes 2" id="polio02">
-                            <label for="polio02">Polio Tetes 2</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="imunisasi02" value="PCV 1" id="pcv02">
-                            <label for="pcv02">PCV 1</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="imunisasi02" value="RV 1" id="rv02">
-                            <label for="rv02">RV 1</label>
+            <div class="form-section">
+                <h3 class="section-title">💉 Imunisasi</h3>
+                <div class="space-y-4">
+                    <div class="imunisasi-card">
+                        <h4 class="imunisasi-title">Usia 0-1 Bulan</h4>
+                        <div class="space-y-2">
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="imunisasi_0_1" value="Hepatitis B (24 Jam)" id="imun1">
+                                <label for="imun1">Hepatitis B (24 Jam)</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="imunisasi_0_1" value="BCG" id="imun2">
+                                <label for="imun2">BCG</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="imunisasi_0_1" value="Polio tetes 1" id="imun3">
+                                <label for="imun3">Polio tetes 1</label>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div>
-                    <h4 class="font-medium text-gray-700 mb-2">Usia 3 Bulan</h4>
-                    <div class="grid md:grid-cols-2 gap-2">
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="imunisasi03" value="DPT-HB-Hib 2" id="dpt03">
-                            <label for="dpt03">DPT-HB-Hib 2</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="imunisasi03" value="Polio Tetes 3" id="polio03">
-                            <label for="polio03">Polio Tetes 3</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="imunisasi03" value="PCV 2" id="pcv03">
-                            <label for="pcv03">PCV 2</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="imunisasi03" value="RV 2" id="rv03">
-                            <label for="rv03">RV 2</label>
+                    <div>
+                        <h4 class="font-medium text-gray-700 mb-2">Usia 2 Bulan</h4>
+                        <div class="space-y-2">
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="imunisasi_2" value="DPT-HB-Hib 1" id="imun4">
+                                <label for="imun4">DPT-HB-Hib 1</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="imunisasi_2" value="Polio Tetes 2" id="imun5">
+                                <label for="imun5">Polio Tetes 2</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="imunisasi_2" value="PCV 1" id="imun6">
+                                <label for="imun6">PCV 1</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="imunisasi_2" value="RV 1" id="imun7">
+                                <label for="imun7">RV 1</label>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div>
-                    <h4 class="font-medium text-gray-700 mb-2">Usia 4 Bulan</h4>
-                    <div class="grid md:grid-cols-2 gap-2">
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="imunisasi04" value="DPT-HB-Hib 3" id="dpt04">
-                            <label for="dpt04">DPT-HB-Hib 3</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="imunisasi04" value="Polio Tetes 4" id="polio04a">
-                            <label for="polio04a">Polio Tetes 4</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="imunisasi04" value="Polio Suntik (IPV) 1" id="polio04b">
-                            <label for="polio04b">Polio Suntik (IPV) 1</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="imunisasi04" value="RV 3" id="rv04">
-                            <label for="rv04">RV 3</label>
+                    <div>
+                        <h4 class="font-medium text-gray-700 mb-2">Usia 3 Bulan</h4>
+                        <div class="space-y-2">
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="imunisasi_3" value="DPT-HB-Hib 2" id="imun8">
+                                <label for="imun8">DPT-HB-Hib 2</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="imunisasi_3" value="Polio Tetes 3" id="imun9">
+                                <label for="imun9">Polio Tetes 3</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="imunisasi_3" value="PCV 2" id="imun10">
+                                <label for="imun10">PCV 2</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="imunisasi_3" value="RV 2" id="imun11">
+                                <label for="imun11">RV 2</label>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div>
-                    <h4 class="font-medium text-gray-700 mb-2">Usia 9 Bulan</h4>
-                    <div class="grid md:grid-cols-2 gap-2">
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="imunisasi09" value="Campak-Rubella" id="campak09">
-                            <label for="campak09">Campak-Rubella</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="imunisasi09" value="Polio Suntik (IPV) 2" id="polio09">
-                            <label for="polio09">Polio Suntik (IPV) 2</label>
+                    <div>
+                        <h4 class="font-medium text-gray-700 mb-2">Usia 4 Bulan</h4>
+                        <div class="space-y-2">
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="imunisasi_4" value="DPT-HB-Hib 3" id="imun12">
+                                <label for="imun12">DPT-HB-Hib 3</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="imunisasi_4" value="Polio Tetes 4" id="imun13">
+                                <label for="imun13">Polio Tetes 4</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="imunisasi_4" value="Polio Suntik (IPV) 1" id="imun14">
+                                <label for="imun14">Polio Suntik (IPV) 1</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="imunisasi_4" value="RV 2" id="imun15">
+                                <label for="imun15">RV 2</label>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div>
-                    <h4 class="font-medium text-gray-700 mb-2">Usia 10 Bulan</h4>
-                    <div class="checkbox-item">
-                        <input type="checkbox" name="imunisasi10" value="Japanese Encephalitis (JE)" id="je10">
-                        <label for="je10">Japanese Encephalitis (JE)</label>
-                    </div>
-                </div>
-
-                <div>
-                    <h4 class="font-medium text-gray-700 mb-2">Usia 12 Bulan</h4>
-                    <div class="checkbox-item">
-                        <input type="checkbox" name="imunisasi12" value="PCV 3" id="pcv12">
-                        <label for="pcv12">PCV 3</label>
-                    </div>
-                </div>
-
-                <div>
-                    <h4 class="font-medium text-gray-700 mb-2">Usia 18 Bulan</h4>
-                    <div class="grid md:grid-cols-2 gap-2">
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="imunisasi18" value="DPT-HB-Hib 4" id="dpt18">
-                            <label for="dpt18">DPT-HB-Hib 4</label>
+                    <div>
+                        <h4 class="font-medium text-gray-700 mb-2">Usia 9 Bulan</h4>
+                        <div class="space-y-2">
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="imunisasi_9" value="Campak-Rubella" id="imun16">
+                                <label for="imun16">Campak-Rubella</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="imunisasi_9" value="Polio Suntik (IPV) 2" id="imun17">
+                                <label for="imun17">Polio Suntik (IPV) 2</label>
+                            </div>
                         </div>
+                    </div>
+
+                    <div>
+                        <h4 class="font-medium text-gray-700 mb-2">Usia 10 Bulan</h4>
                         <div class="checkbox-item">
-                            <input type="checkbox" name="imunisasi18" value="Campak-Rubella" id="campak18">
-                            <label for="campak18">Campak-Rubella</label>
+                            <input type="checkbox" name="imunisasi_10" value="Japanese Encephalitis (JE)" id="imun18">
+                            <label for="imun18">Japanese Encephalitis (JE)</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="font-medium text-gray-700 mb-2">Usia 12 Bulan</h4>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="imunisasi_12" value="PCV3" id="imun19">
+                            <label for="imun19">PCV3</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="font-medium text-gray-700 mb-2">Usia 18 Bulan</h4>
+                        <div class="space-y-2">
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="imunisasi_18" value="DPT-HB-Hib 4" id="imun20">
+                                <label for="imun20">DPT-HB-Hib 4</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="imunisasi_18" value="Campak-Rubella" id="imun21">
+                                <label for="imun21">Campak-Rubella</label>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Pola Makan -->
-            <div class="section-title">Pola Makan</div>
-            <div class="space-y-3">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">ASI</label>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="radio" name="asi" value="Ya" id="asiYa">
-                            <label for="asiYa">Ya</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="radio" name="asi" value="Tidak" id="asiTidak">
-                            <label for="asiTidak">Tidak</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Makanan Pokok (Beras/Kentang/Jagung)</label>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="radio" name="makananPokok" value="Ya" id="pokokYa">
-                            <label for="pokokYa">Ya</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="radio" name="makananPokok" value="Tidak" id="pokokTidak">
-                            <label for="pokokTidak">Tidak</label>
+            <!-- Makanan -->
+            <div class="form-section">
+                <h3 class="section-title">Makanan</h3>
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">ASI</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="radio" name="asi" value="Ya" id="asi1">
+                                <label for="asi1">Ya</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" name="asi" value="Tidak" id="asi2">
+                                <label for="asi2">Tidak</label>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Makanan Sumber Protein Hewan (Telur/Ikan/Ayam/Daging/Udang/Hati/Susu dan Produk Olahan)</label>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="radio" name="proteinHewan" value="Ya" id="hewanYa">
-                            <label for="hewanYa">Ya</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="radio" name="proteinHewan" value="Tidak" id="hewanTidak">
-                            <label for="hewanTidak">Tidak</label>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Makanan Pokok (Beras/Kentang/Jagung)</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="radio" name="makananPokok" value="Ya" id="pokok1">
+                                <label for="pokok1">Ya</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" name="makananPokok" value="Tidak" id="pokok2">
+                                <label for="pokok2">Tidak</label>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Makanan Sumber Protein Nabati (Tahu/Tempe/Kacang Hijau/Kacang Polong)</label>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="radio" name="proteinNabati" value="Ya" id="nabatiYa">
-                            <label for="nabatiYa">Ya</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="radio" name="proteinNabati" value="Tidak" id="nabatiTidak">
-                            <label for="nabatiTidak">Tidak</label>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Makanan Sumber Protein Hewan (Telur/Ikan/Ayam/Daging/Udang/Hati/Susu dan Produk Olahan)</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="radio" name="proteinHewan" value="Ya" id="hewan1">
+                                <label for="hewan1">Ya</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" name="proteinHewan" value="Tidak" id="hewan2">
+                                <label for="hewan2">Tidak</label>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Sumber Lemak (Minyak/Santan)</label>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="radio" name="sumberLemak" value="Ya" id="lemakYa">
-                            <label for="lemakYa">Ya</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="radio" name="sumberLemak" value="Tidak" id="lemakTidak">
-                            <label for="lemakTidak">Tidak</label>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Makanan Sumber Protein Nabati (Tahu/Tempe/Kacang Hijau/Kacang Polong)</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="radio" name="proteinNabati" value="Ya" id="nabati1">
+                                <label for="nabati1">Ya</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" name="proteinNabati" value="Tidak" id="nabati2">
+                                <label for="nabati2">Tidak</label>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Buah dan Sayur</label>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="radio" name="buahSayur" value="Ya" id="buahYa">
-                            <label for="buahYa">Ya</label>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Sumber Lemak (Minyak/Santan)</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="radio" name="sumberLemak" value="Ya" id="lemak1">
+                                <label for="lemak1">Ya</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" name="sumberLemak" value="Tidak" id="lemak2">
+                                <label for="lemak2">Tidak</label>
+                            </div>
                         </div>
-                        <div class="checkbox-item">
-                            <input type="radio" name="buahSayur" value="Tidak" id="buahTidak">
-                            <label for="buahTidak">Tidak</label>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Buah dan Sayur</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="radio" name="buahSayur" value="Ya" id="buah1">
+                                <label for="buah1">Ya</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" name="buahSayur" value="Tidak" id="buah2">
+                                <label for="buah2">Tidak</label>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Obat Cacing -->
-            <div class="section-title">Obat Cacing</div>
-            <div class="grid md:grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
+            <div class="form-section">
+                <h3 class="section-title">Obat Cacing</h3>
+                <div class="space-y-3">
                     <div class="checkbox-group">
                         <div class="checkbox-item">
-                            <input type="radio" name="obatCacing" value="Ada" id="cacingAda">
-                            <label for="cacingAda">Ada</label>
+                            <input type="radio" name="obatCacing" value="Ada" id="cacing1">
+                            <label for="cacing1">Ada</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="radio" name="obatCacing" value="Tidak" id="cacingTidak">
-                            <label for="cacingTidak">Tidak</label>
+                            <input type="radio" name="obatCacing" value="Tidak" id="cacing2">
+                            <label for="cacing2">Tidak</label>
                         </div>
                     </div>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal Pemberian</label>
-                    <input type="date" name="tanggalObatCacing" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal Pemberian</label>
+                        <input type="date" name="tanggalObatCacing" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
                 </div>
             </div>
 
             <!-- Kapsul Vitamin A -->
-            <div class="section-title">Kapsul Vitamin A</div>
-            <div class="space-y-4">
-                <div>
-                    <h4 class="font-medium text-gray-700 mb-2">Usia 6-11 Bulan (Kapsul Biru)</h4>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="vitABiru" value="Februari" id="biruFeb">
-                            <label for="biruFeb">Februari</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="vitABiru" value="Agustus" id="biruAgt">
-                            <label for="biruAgt">Agustus</label>
+            <div class="form-section">
+                <h3 class="section-title">Kapsul Vitamin A</h3>
+                <div class="space-y-4">
+                    <div>
+                        <h4 class="font-medium text-gray-700 mb-2">Usia 6-11 Bulan (Kapsul Biru)</h4>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="vitaminA_biru" value="Februari" id="biru1">
+                                <label for="biru1">Februari</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="vitaminA_biru" value="Agustus" id="biru2">
+                                <label for="biru2">Agustus</label>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div>
-                    <h4 class="font-medium text-gray-700 mb-2">Usia 12-59 Bulan (Kapsul Merah)</h4>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="vitAMerah" value="Februari" id="merahFeb">
-                            <label for="merahFeb">Februari</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="vitAMerah" value="Agustus" id="merahAgt">
-                            <label for="merahAgt">Agustus</label>
+                    <div>
+                        <h4 class="font-medium text-gray-700 mb-2">Usia 12-59 Bulan (Kapsul Merah)</h4>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="vitaminA_merah" value="Februari" id="merah1">
+                                <label for="merah1">Februari</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="vitaminA_merah" value="Agustus" id="merah2">
+                                <label for="merah2">Agustus</label>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- PMT Pemulihan -->
-            <div class="section-title">PMT Pemulihan Bagi Balita Dengan Masalah Gizi</div>
-            <div class="grid md:grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Ada PMT</label>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="radio" name="pmtAda" value="Ya" id="pmtYa">
-                            <label for="pmtYa">Ya</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="radio" name="pmtAda" value="Tidak" id="pmtTidak">
-                            <label for="pmtTidak">Tidak</label>
+            <div class="form-section">
+                <h3 class="section-title">PMT Pemulihan Bagi Balita Dengan Masalah Gizi</h3>
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Ada</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="radio" name="pmtPemulihan" value="Ya" id="pmt1">
+                                <label for="pmt1">Ya</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" name="pmtPemulihan" value="Tidak" id="pmt2">
+                                <label for="pmt2">Tidak</label>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Kepatuhan Konsumsi</label>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="radio" name="kepatuhanPmt" value="Ya" id="patuhYa">
-                            <label for="patuhYa">Ya</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="radio" name="kepatuhanPmt" value="Tidak" id="patuhTidak">
-                            <label for="patuhTidak">Tidak</label>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Kepatuhan Konsumsi</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="radio" name="kepatuhanKonsumsi" value="Ya" id="patuh1">
+                                <label for="patuh1">Ya</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" name="kepatuhanKonsumsi" value="Tidak" id="patuh2">
+                                <label for="patuh2">Tidak</label>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Tanda Bahaya -->
-            <div class="section-title">Tanda Bahaya</div>
-            <div class="grid md:grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Napas</label>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="radio" name="napas" value="Normal" id="napasNormal">
-                            <label for="napasNormal">Normal</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="radio" name="napas" value="Tidak Normal" id="napasTidak">
-                            <label for="napasTidak">Tidak Normal</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Batuk</label>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="radio" name="batuk" value="Ya" id="batukYa">
-                            <label for="batukYa">Ya</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="radio" name="batuk" value="Tidak" id="batukTidak">
-                            <label for="batukTidak">Tidak</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Demam/Panas Tinggi</label>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="radio" name="demam" value="Ya" id="demamYa">
-                            <label for="demamYa">Ya</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="radio" name="demam" value="Tidak" id="demamTidak">
-                            <label for="demamTidak">Tidak</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Diare</label>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="radio" name="diare" value="Ya" id="diareYa">
-                            <label for="diareYa">Ya</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="radio" name="diare" value="Tidak" id="diareTidak">
-                            <label for="diareTidak">Tidak</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Kejang</label>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="radio" name="kejang" value="Ya" id="kejangYa">
-                            <label for="kejangYa">Ya</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="radio" name="kejang" value="Tidak" id="kejangTidak">
-                            <label for="kejangTidak">Tidak</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Muntah-Muntah</label>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="radio" name="muntah" value="Ya" id="muntahYa">
-                            <label for="muntahYa">Ya</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="radio" name="muntah" value="Tidak" id="muntahTidak">
-                            <label for="muntahTidak">Tidak</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Tidak Bisa Minum</label>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="radio" name="tidakMinum" value="Ya" id="minumYa">
-                            <label for="minumYa">Ya</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="radio" name="tidakMinum" value="Tidak" id="minumTidak">
-                            <label for="minumTidak">Tidak</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Pembengkakan yang nyeri di belakang telinga</label>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="radio" name="bengkakTelinga" value="Ya" id="telingaYa">
-                            <label for="telingaYa">Ya</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="radio" name="bengkakTelinga" value="Tidak" id="telingaTidak">
-                            <label for="telingaTidak">Tidak</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Perdarahan di Hidung/Kulit/BAB</label>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="radio" name="perdarahan" value="Ya" id="darahYa">
-                            <label for="darahYa">Ya</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="radio" name="perdarahan" value="Tidak" id="darahTidak">
-                            <label for="darahTidak">Tidak</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Tampak Biru (Sianosis)</label>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="radio" name="sianosis" value="Ya" id="biruYa">
-                            <label for="biruYa">Ya</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="radio" name="sianosis" value="Tidak" id="biruTidak">
-                            <label for="biruTidak">Tidak</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Melakukan rujukan ke nakes</label>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="radio" name="rujukan" value="Ya" id="rujukYa">
-                            <label for="rujukYa">Ya</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="radio" name="rujukan" value="Tidak" id="rujukTidak">
-                            <label for="rujukTidak">Tidak</label>
-                        </div>
-                    </div>
-                </div>
+            <!-- Pemberian Edukasi/Rujukan Nakes -->
+            <div class="form-section">
+                <h3 class="section-title">Pemberian Edukasi/Rujukan Nakes</h3>
+                <textarea name="edukasiRujukan" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Tuliskan edukasi atau rujukan yang diberikan..."></textarea>
             </div>
 
             <!-- Submit Button -->
-            <div class="text-center pt-6">
-                <button type="submit" class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-200 shadow-lg">
-                    Kirim Data ke Spreadsheet
+            <div class="text-center">
+                <button type="submit" class="submit-btn text-white font-bold py-4 px-12 rounded-2xl shadow-2xl text-lg">
+                    <span class="relative z-10 flex items-center gap-3">
+                        📊 Kirim Data ke Spreadsheet
+                    </span>
                 </button>
             </div>
         </form>
@@ -649,105 +670,72 @@
     </div>
 
     <script>
-        // Google Apps Script Web App URL
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyJNo-NADLF9Q680XTY4hEJfkURyn7Fx8lHhb5G1RcPuOSGTneOaEeHLObNlADiwnumLg/exec';
+        // Google Apps Script Web App URL - Connected to your spreadsheet
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwEHjTQBQBTCpfxB9hBK6Ye-S5qgBtc5aOacKEJZz_1BR2hri9Pw-QuIAGSv_MiyC_wRQ/exec';
 
-        document.getElementById('healthChecklistForm').addEventListener('submit', async function(e) {
+        document.getElementById('checklistForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const statusDiv = document.getElementById('statusMessage');
-            const submitBtn = e.target.querySelector('button[type="submit"]');
-            
-            // Show loading state
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Mengirim Data...';
             statusDiv.className = 'mt-4 p-4 rounded-lg bg-blue-100 text-blue-800';
-            statusDiv.textContent = 'Sedang mengirim data ke spreadsheet...';
+            statusDiv.textContent = 'Mengirim data...';
             statusDiv.classList.remove('hidden');
 
-            try {
-                // Collect form data
-                const formData = new FormData(e.target);
-                const data = {};
-                
-                // Handle regular form fields
-                for (let [key, value] of formData.entries()) {
-                    if (data[key]) {
-                        // Handle multiple values (checkboxes)
-                        if (Array.isArray(data[key])) {
-                            data[key].push(value);
-                        } else {
-                            data[key] = [data[key], value];
-                        }
-                    } else {
-                        data[key] = value;
-                    }
-                }
+            // Collect form data
+            const formData = new FormData(this);
+            const data = {};
 
-                // Convert arrays to comma-separated strings
-                for (let key in data) {
+            // Handle regular form fields
+            for (let [key, value] of formData.entries()) {
+                if (data[key]) {
+                    // Handle multiple values (checkboxes)
                     if (Array.isArray(data[key])) {
-                        data[key] = data[key].join(', ');
+                        data[key].push(value);
+                    } else {
+                        data[key] = [data[key], value];
                     }
+                } else {
+                    data[key] = value;
                 }
+            }
 
-                // Add timestamp
-                data.timestamp = new Date().toLocaleString('id-ID');
+            // Convert arrays to comma-separated strings
+            for (let key in data) {
+                if (Array.isArray(data[key])) {
+                    data[key] = data[key].join(', ');
+                }
+            }
 
-                // Send to Google Apps Script
-                const response = await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
-                });
+            // Add timestamp
+            data.timestamp = new Date().toLocaleString('id-ID');
 
-                // Show success message
+            // Send to Google Apps Script
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(() => {
                 statusDiv.className = 'mt-4 p-4 rounded-lg bg-green-100 text-green-800';
-                statusDiv.innerHTML = `
-                    <div class="flex items-center">
-                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                        </svg>
-                        Data berhasil dikirim ke spreadsheet!
-                    </div>
-                `;
-
-                // Reset form
-                e.target.reset();
-
-            } catch (error) {
+                statusDiv.textContent = 'Data berhasil dikirim ke spreadsheet!';
+                
+                // Reset form after successful submission
+                document.getElementById('checklistForm').reset();
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    statusDiv.classList.add('hidden');
+                }, 5000);
+            })
+            .catch(error => {
                 console.error('Error:', error);
                 statusDiv.className = 'mt-4 p-4 rounded-lg bg-red-100 text-red-800';
-                statusDiv.innerHTML = `
-                    <div class="flex items-center">
-                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-                        </svg>
-                        Terjadi kesalahan saat mengirim data. Silakan coba lagi.
-                    </div>
-                `;
-            } finally {
-                // Reset button
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Kirim Data ke Spreadsheet';
-            }
+                statusDiv.textContent = 'Terjadi kesalahan saat mengirim data. Silakan coba lagi.';
+            });
         });
-
-        // Auto-hide status message after 5 seconds
-        function hideStatusAfterDelay() {
-            setTimeout(() => {
-                const statusDiv = document.getElementById('statusMessage');
-                if (!statusDiv.classList.contains('hidden')) {
-                    statusDiv.classList.add('hidden');
-                }
-            }, 5000);
-        }
-
-        // Call this function whenever showing a status message
-        document.getElementById('healthChecklistForm').addEventListener('submit', hideStatusAfterDelay);
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'981fb38db4ca6015',t:'MTc1ODM1NDMwNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9838a971c1d6ce55',t:'MTc1ODYxNjAzNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
